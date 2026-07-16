@@ -1,222 +1,254 @@
-* { box-sizing: border-box; }
-        
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midnight Blue Preview - DCSG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Niramit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ================= UNIFIED THEME VARIABLES ================= */
+        :root {
+            /* 🔵 ธีมมาตรฐาน (ใช้กับหน้าคำนวณ และ แดชบอร์ด) */
+            --app-bg: #FCFAF5;          /* พื้นหลังครีมสว่าง */
+            --panel-bg: #ffffff;        
+            --primary-color: #0A142F;   /* กรมท่าเข้ม (สีเดิมของบอส) */
+            --accent-color: #C8A145;    /* สีทองพรีเมียม (สีเดิม) */
+            --surface-color: #F5F1E7;   /* ขอบครีมอ่อน */
+            --border-color: #E8E2D9;
+            --text-color: #1E2432;
+        }
+
+        body.theme-classic {
+            /* 🟦 ธีมเฉพาะหน้าล็อกราคา (สีน้ำเงินเข้มขึ้น 30% จาก #191970 เป็น Deep Midnight) */
+            --primary-color: #11114F;   
+        }
+
         body {
+            background-color: var(--app-bg);
+            color: var(--text-color);
             font-family: 'Anuphan', sans-serif;
-            background: #FCFAF5; /* ปรับพื้นหลังเป็นสีครีมสว่างตามภาพต้นแบบ */
-            min-height: 100vh; 
-            margin: 0; 
-            padding: 0; 
+            margin: 0; padding: 0;
             -webkit-font-smoothing: antialiased;
+            /* ไม่ใส่ transition ที่ background เพื่อไม่ให้จอกระพริบเวลาเปลี่ยนแท็บ */
         }
 
-        /* ================= VIEW ISOLATION ENGINE ================= */
-        .view-section {
-            display: none !important;
-            width: 100%;
-        }
-        .view-section.active {
-            display: block !important;
-        }
-        
-        #loginView.active {
-            min-height: 100vh;
-            display: flex !important;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .auth-card {
-            background: #ffffff; width: 100%; max-width: 450px; padding: 45px 35px;
-            border-radius: 32px; box-shadow: 0 25px 60px rgba(10, 20, 47, 0.05);
-            border: 1px solid #E8E2D9; text-align: center;
-            position: relative;
-        }
+        * { box-sizing: border-box; }
 
-        .brand-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(200, 161, 69, 0.12); /* พื้นหลังสีทองอ่อน */
-            color: #C8A145; /* สีทองพรีเมียม */
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            margin-bottom: 12px;
-        }
+        /* ================= SHARED STYLES ================= */
+        #calculatorView { max-width: 1400px; margin: 30px auto; padding: 0 20px; }
 
-        .auth-title { 
-            font-family: 'Niramit', sans-serif; 
-            font-size: 34px; 
-            font-weight: 800; 
-            color: #0A142F; /* สีกรมท่าเข้ม */
-            margin: 0; 
-            letter-spacing: 0.08em; 
-        }
+        .dash-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--surface-color); padding-bottom: 15px; margin-bottom: 25px; }
+        .dash-header h1 { color: var(--primary-color); font-size: 26px; margin: 0; font-weight: 700; font-family: 'Niramit', sans-serif; transition: color 0.3s ease; }
 
-        .auth-subtitle { font-size: 12px; color: #717885; margin: 10px 0 25px 0; }
-        
-        .tab-menu { display: flex; border-bottom: 2px solid #F5F1E7; margin-bottom: 25px; }
-        .tab-btn { flex: 1; padding: 12px; font-weight: 600; font-size: 14px; color: #717885; cursor: pointer; border: none; background: none; transition: all 0.2s; font-family: 'Anuphan', sans-serif; }
-        .tab-btn.active { color: #C8A145; border-bottom: 2px solid #C8A145; margin-bottom: -2px; }
+        .tabs-nav { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid var(--surface-color); padding-bottom: 10px; }
+        .tab-nav-btn { background: none; border: none; padding: 12px 20px; font-size: 15px; font-weight: 600; color: #717885; cursor: pointer; border-radius: 8px; font-family: 'Anuphan', sans-serif; transition: 0.2s; }
+        .tab-nav-btn:hover { background: rgba(0,0,0,0.03); }
+        .tab-nav-btn.active { background: var(--surface-color); color: var(--primary-color); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 
-        .form-group { text-align: left; margin-bottom: 16px; }
-        .form-group label { display: block; font-size: 12.5px; font-weight: 600; color: #1E2432; margin-bottom: 6px; }
-        .form-group input, .form-group select {
-            width: 100%; padding: 12px 14px; border: 1px solid #E8E2D9; border-radius: 10px;
-            font-size: 14px; font-family: 'Anuphan', sans-serif; outline: none; background: #ffffff;
-        }
-        .form-group input:focus, .form-group select:focus { border-color: #0A142F; box-shadow: 0 0 0 3px rgba(10, 20, 47, 0.08); }
-        
-        .btn-auth { width: 100%; background: #0A142F; color:#fff; border:none; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 10px; font-family: 'Anuphan', sans-serif; transition: background 0.2s;}
-        .btn-auth:hover { background: #162447; }
-        
-        .main-dashboard { width: 100%; max-width: 1400px; background: #ffffff; padding: 35px; border-radius: 24px; box-shadow: 0 12px 40px rgba(10, 20, 47, 0.04); position: relative; margin: 0 auto; }
-        .dash-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F5F1E7; padding-bottom: 15px; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
-        .dash-header h1 { color: #0A142F; font-size: 26px; margin: 0; font-weight: 700; font-family: 'Niramit', sans-serif;}
-        .user-badge-zone { display: flex; align-items: center; gap: 12px; }
-        .user-tag { background: #F5F1E7; border: 1px solid #E8E2D9; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; color: #0A142F; }
-        .btn-logout { background: #c94c4c; color:#fff; border:none; padding:8px 16px; border-radius:8px; font-size:13px; cursor:pointer; font-weight:600; transition: background 0.2s; }
-        .btn-logout:hover { background: #b03a3a; }
-        
-        .tabs-nav { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid #F5F1E7; padding-bottom: 10px; }
-        .tab-nav-btn { background: none; border: none; padding: 10px 20px; font-size: 15px; font-weight: 600; color: #717885; cursor: pointer; border-radius: 8px; font-family: 'Anuphan', sans-serif; }
-        .tab-nav-btn.active { background: #F5F1E7; color: #C8A145; }
-        .tab-content { display: none; }
+        .tab-content { display: none; animation: fadeIn 0.3s; }
         .tab-content.active { display: block; }
 
-        .workspace-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 35px; align-items: start; }
-        @media (max-width: 900px) { .workspace-grid { grid-template-columns: 1fr; } }
-        .right-panel { background-color: #FCFAF5; padding: 25px; border-radius: 20px; border: 1px solid #E8E2D9; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-        .preset-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-        .btn-preset { background-color: #ffffff; border: 1px solid #E8E2D9; color: #717885; padding: 5px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; font-family: 'Anuphan', sans-serif; font-weight: 500; }
-        .btn-preset:hover { border-color: #0A142F; color: #0A142F; }
-        .btn-add-item { background-color: #0A142F; color: #ffffff; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; display: flex; justify-content: center; gap: 8px; margin-top: 10px; font-family: 'Anuphan', sans-serif;}
-        .btn-add-item:hover { background: #162447; }
-        
-        .table-container { border: 1px solid #E8E2D9; border-radius: 14px; overflow: hidden; background: #ffffff; max-height: 250px; overflow-y: auto; }
-        .item-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-        .item-table th { background-color: #F5F1E7; color: #0A142F; padding: 12px; font-weight: 600; position: sticky; top: 0; text-align: left; }
-        .item-table td { padding: 12px; border-bottom: 1px solid #F5F1E7; text-align: left; vertical-align: middle; }
-        .btn-delete-row { background: #fbebebe8; color: #c94c4c; border: 1px solid #f5c2c2; padding: 4px 8px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: 600; }
-        .btn-delete-row:hover { background: #c94c4c; color: #fff; }
-        
-        .result-box { background-color: #0A142F; color: #ffffff; padding: 20px; border-radius: 14px; text-align: center; margin-top: 15px; font-size: 14px; }
-        .result-box span { font-size: 34px; font-weight: 700; display: block; margin-top: 5px; font-family: 'DM Mono', monospace; color: #C8A145;}
-        
-        .action-container { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 15px; }
-        .btn-action { padding: 14px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; text-align: center; font-family: 'Anuphan', sans-serif;}
-        .btn-send-sheet { background-color: #C8A145; color: #ffffff; }
-        .btn-send-sheet:hover { background-color: #b38e36; }
-        .cheat-sheet-box { background-color: #ffffff; border: 1px dashed #C8A145; border-radius: 12px; padding: 14px; margin-top: 15px; font-size: 12.5px; line-height: 1.5; color: #1E2432; }
-        
-        .report-section { background: #ffffff; border: 1px solid #E8E2D9; border-radius: 16px; padding: 25px; }
-        .filter-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
-        .filter-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .filter-group label { font-size: 12.5px; font-weight: 600; color: #1E2432; }
-        .filter-group select, .filter-group input { padding: 8px 12px; border-radius: 8px; border: 1px solid #E8E2D9; font-family: 'Anuphan'; outline: none; }
-        
-        .dashboard-table-wrapper { border: 1px solid #E8E2D9; border-radius: 12px; overflow-x: auto; background: #fff; }
-        .dash-large-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 1150px; }
-        .dash-large-table th { background: #F5F1E7; color: #0A142F; padding: 12px 10px; font-weight: 600; border-bottom: 2px solid #E8E2D9; text-align: center; }
-        .dash-large-table td { padding: 12px 10px; border-bottom: 1px solid #F5F1E7; text-align: center; }
-        
-        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 600; display: inline-block; }
-        .badge-lock { background: #e3f2fd; color: #0d47a1; }
-        .badge-wait { background: #fff3e0; color: #e65100; }
-        .profit-positive { color: #2e7d32; font-weight: 600; background: #e8f5e9; padding: 2px 6px; border-radius: 4px; }
-        .profit-negative { color: #c62828; font-weight: 600; background: #ffebee; padding: 2px 6px; border-radius: 4px; }
-        
-        .loading-overlay { display: none; position: absolute; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.92); border-radius:32px; justify-content:center; align-items:center; font-weight:600; color:#0A142F; z-index:100; flex-direction:column; }
-        
-        /* Portal Launcher CSS */
-        .portal-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid #E8E2D9; background: #ffffff; }
-        .portal-brand { font-family: 'Niramit', sans-serif; font-weight: 700; font-size: 22px; color: #0A142F; }
-        .portal-user-info { display: flex; align-items: center; gap: 16px; }
-        .portal-hero { max-width: 1100px; margin: 40px auto 20px auto; padding: 0 20px; text-align: center; }
-        .portal-hero h1 { font-family: 'Niramit', sans-serif; font-size: 38px; font-weight: 700; color: #0A142F; margin: 0 0 10px 0; }
-        .portal-hero p { font-size: 15px; color: #717885; margin: 0; }
-        .portal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1100px; margin: 30px auto 50px auto; padding: 0 20px; }
-        .portal-card { background: #ffffff; border-radius: 20px; padding: 32px 24px; border: 1px solid #E8E2D9; box-shadow: 0 10px 30px rgba(10,20,47,0.03); text-align: center; position: relative; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
-        .portal-card:hover:not(.locked) { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(10, 20, 47, 0.08); }
-        .card-icon-wrapper { width: 70px; height: 70px; margin: 0 auto 20px auto; border-radius: 50%; background: rgba(200, 161, 69, 0.12); color: #0A142F; display: flex; align-items: center; justify-content: center; font-size: 28px; }
-        .portal-card h3 { font-size: 20px; margin: 0 0 8px 0; color: #0A142F; }
-        .portal-card p { font-size: 13.5px; color: #717885; margin: 0 0 24px 0; line-height: 1.5; }
-        .btn-card-launch { background: #0A142F; color: #ffffff; border: none; padding: 12px 20px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; transition: background 0.2s; width: 100%; }
-        .btn-card-launch:hover { background: #C8A145; }
-        .portal-card.locked { filter: grayscale(0.85); opacity: 0.65; background: #F5F1E7; }
-        .lock-overlay { display: none; position: absolute; top: 14px; right: 14px; background: #E8E2D9; color: #717885; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
-        .portal-card.locked .lock-overlay { display: inline-block; }
-        .portal-card.locked .btn-card-launch { background: #b0bec5; cursor: not-allowed; }
-        .trust-badges { display: flex; justify-content: center; gap: 24px; font-size: 12.5px; color: #717885; margin-top: 20px; padding-bottom: 40px; }
-        .btn-back-portal { position: fixed; top: 18px; right: 24px; z-index: 9999; background: #C8A145; color: #ffffff; border: none; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(10,20,47,0.18); transition: background 0.2s; }
-        .btn-back-portal:hover { background: #0A142F; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Classic Scope Styles */
-        .classic-scope { font-family: 'Helvetica Neue', Arial, sans-serif; }
-        .classic-scope, .classic-scope *, .classic-scope *:before, .classic-scope *:after { box-sizing: border-box; }
-        .classic-scope .main-wrapper { display: flex; flex-direction: row; flex-wrap: wrap; gap: 20px; width: 100%; max-width: 1550px; }
-        .classic-scope .left-container { flex: 1; min-width: 320px; max-width: 450px; display: flex; flex-direction: column; gap: 20px; }
-        .classic-scope .calculator-container { background-color: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 4px 20px rgba(10, 20, 47, 0.05); width: 100%; border: 1px solid #E8E2D9;}
-        .classic-scope .cc-table-container { background-color: #ffffff; flex: 2; min-width: 320px; padding: 25px; border-radius: 16px; box-shadow: 0 4px 20px rgba(10, 20, 47, 0.05); display: flex; flex-direction: column; border: 1px solid #E8E2D9;}
-        .classic-scope .tab-control-bar { display: flex; gap: 10px; border-bottom: 2px solid #E8E2D9; padding-bottom: 10px; margin-bottom: 15px; }
-        .classic-scope .cc-tab-btn { padding: 10px 20px; border: none; background-color: #F5F1E7; color: #717885; font-size: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .cc-tab-btn.active-tab { background-color: #C8A145; color: #ffffff; box-shadow: 0 2px 6px rgba(200, 161, 69, 0.2); }
-        .classic-scope .table-scroll-wrapper { max-height: 520px; overflow-y: auto; overflow-x: auto; margin-top: 15px; border: 1px solid #E8E2D9; border-radius: 8px; -webkit-overflow-scrolling: touch; }
-        .classic-scope .gold-table { width: 100%; min-width: 850px; border-collapse: separate; border-spacing: 0; font-size: 14px; }
-        .classic-scope .gold-table th { background-color: #F5F1E7; color: #0A142F; font-weight: bold; text-align: center; padding: 12px; border-bottom: 2px solid #E8E2D9; position: sticky; top: 0; z-index: 10; }
-        .classic-scope .gold-table td { padding: 12px; border-bottom: 1px solid #F5F1E7; color: #1E2432; text-align: center; }
-        .classic-scope .calc-mode-container { display: flex; gap: 8px; margin-bottom: 20px; background-color: #F5F1E7; padding: 6px; border-radius: 12px; }
-        .classic-scope .mode-btn { flex: 1; padding: 12px 5px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: center; background-color: transparent; color: #717885; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .mode-btn.active-gold { background-color: #C8A145; color: #fff; box-shadow: 0 2px 8px rgba(200, 161, 69, 0.3); }
-        .classic-scope .mode-btn.active-silver { background-color: #0A142F; color: #fff; box-shadow: 0 2px 8px rgba(10, 20, 47, 0.3); }
-        .classic-scope .cc-row { display: flex; gap: 12px; margin-bottom: 12px; width: 100%; }
-        .classic-scope .cc-form-group { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-        .classic-scope label { color: #1E2432; font-size: 13px; margin-bottom: 6px; font-weight: 500; font-family: 'Anuphan', sans-serif;}
-        .classic-scope input { padding: 12px; border: 1px solid #E8E2D9; border-radius: 10px; font-size: 16px; outline: none; width: 100%; font-family: 'Anuphan', sans-serif; background: #ffffff;}
-        .classic-scope .delete-row-btn { background-color: #ffe6e6; color: #c94c4c; border: 1px solid #f5c2c2; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: bold; cursor: pointer; margin-right: 10px; transition: all 0.2s; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .delete-row-btn:hover { background-color: #c94c4c; color: #ffffff; }
-        .classic-scope .item-name-cell { display: flex; align-items: center; justify-content: flex-start; padding-left: 15px !important; }
-        .classic-scope .pay-column { font-weight: bold; color: #C8A145 !important; }
-        .classic-scope .summary-row td { position: sticky; bottom: 0; z-index: 9; background-color: #F5F1E7 !important; color: #0A142F; font-weight: bold; border-top: 2px solid #E8E2D9; border-bottom: none; font-size: 15px; }
-        .classic-scope .empty-row-text { color: #bbb; font-style: italic; }
-        .classic-scope .silver-net-pay-container { margin-top: 20px; align-self: flex-end; background-color: #FCFAF5; border: 1px solid #E8E2D9; padding: 15px 25px; border-radius: 12px; text-align: right; width: 100%; max-width: 380px; box-shadow: 0 2px 10px rgba(10,20,47,0.03); }
-        .classic-scope .silver-net-title { font-size: 13px; color: #1E2432; font-weight: bold; margin-bottom: 4px; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .silver-net-value { font-size: 26px; font-weight: bold; color: #0A142F; font-family: 'DM Mono', monospace;}
-        .classic-scope .save-to-history-btn { background-color: #0A142F; color: #ffffff; border: none; padding: 10px 18px; font-size: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .save-to-history-btn:hover { background: #162447; }
-        .classic-scope .history-list { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
-        .classic-scope .history-item { background-color: #ffffff; border: 1px solid #E8E2D9; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 8px; position: relative; }
-        .classic-scope .history-item-header { display: flex; justify-content: space-between; font-size: 13px; color: #717885; border-bottom: 1px dashed #E8E2D9; padding-bottom: 6px; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .history-item-body { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .classic-scope .history-summary-text { font-size: 14px; color: #1E2432; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .history-actions { display: flex; gap: 8px; }
-        .classic-scope .hist-btn { padding: 6px 12px; font-size: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; border: 1px solid #E8E2D9; transition: all 0.1s; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .btn-recall { background-color: #F5F1E7; color: #0A142F; }
-        .classic-scope .btn-delete-hist { background-color: #fff; color: #c94c4c; border-color: #f5c2c2; }
-        .classic-scope .btn-delete-hist:hover { background-color: #c94c4c; color: #fff; }
-        .classic-scope .history-grand-total { margin-top: 20px; background-color: #F5F1E7; border: 1px solid #E8E2D9; padding: 15px; border-radius: 10px; font-size: 14px; color: #0A142F; font-weight: bold; display: flex; justify-content: space-between; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 20, 47, 0.4); display: flex; justify-content: center; align-items: center; z-index: 9999; }
-        .classic-scope .modal-box { background-color: #ffffff; width: 90%; max-width: 700px; border-radius: 16px; padding: 25px; box-shadow: 0 10px 30px rgba(10,20,47,0.15); display: flex; flex-direction: column; max-height: 85vh; border: 1px solid #E8E2D9;}
-        .classic-scope .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E8E2D9; padding-bottom: 10px; margin-bottom: 15px; }
-        .classic-scope .modal-title { font-size: 18px; font-weight: bold; color: #0A142F; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .modal-close-x { background: none; border: none; font-size: 20px; color: #999; cursor: pointer; }
-        .classic-scope .modal-body { overflow-y: auto; margin-bottom: 15px; }
-        .classic-scope .modal-footer { display: flex; justify-content: flex-end; }
-        .classic-scope .btn-close-modal { background-color: #F5F1E7; color: #0A142F; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: 'Anuphan', sans-serif;}
-        @media (max-width: 1024px) { .classic-scope .main-wrapper { flex-direction: column; } .classic-scope .left-container { max-width: 100%; } .classic-scope .silver-net-pay-container { align-self: center; max-width: 100%; text-align: center; } }
-        .classic-scope .pure-gold-container { background-color: #F5F1E7; border: 1px solid #E8E2D9; padding: 22px; border-radius: 16px; display: flex; flex-direction: column; gap: 15px; }
-        .classic-scope .pure-box-section { text-align: center; }
-        .classic-scope .pure-box-section:not(:last-child) { border-bottom: 1px dashed #E8E2D9; padding-bottom: 15px; }
-        .classic-scope .pure-gold-title { font-size: 14px; color: #1E2432; font-weight: bold; margin-bottom: 6px; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .pure-gold-value { font-size: 26px; font-weight: bold; color: #C8A145; font-family: 'DM Mono', monospace;}
-        .classic-scope .refine-title { color: #717885; }
-        .classic-scope .refine-value { color: #1E2432; }
-        .classic-scope .result-button { background-color: #0A142F; color: #C8A145; text-align: center; padding: 18px; border-radius: 12px; margin-top: 20px; }
-        .classic-scope .result-amount { font-size: 28px; font-weight: bold; font-family: 'DM Mono', monospace;}
-        .classic-scope .add-btn { background-color: #C8A145; color: white; border: none; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 10px; width: 100%; margin-top: 15px; cursor: pointer; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .add-btn:hover { background-color: #b38e36; }
-        .classic-scope .clear-btn { background-color: #F5F1E7; color: #c94c4c; border: 1px solid #E8E2D9; padding: 10px 18px; font-size: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .clear-btn:hover { background-color: #ffe6e6; }
-        .classic-scope .hidden-element { display: none !important; }
+        /* Form & Panels */
+        .left-panel, .right-panel, .report-section, .calculator-container, .cc-table-container { 
+            background-color: var(--panel-bg); padding: 25px; border-radius: 20px; 
+            border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .workspace-grid, .classic-scope .main-wrapper { display: grid; grid-template-columns: 1fr 1.1fr; gap: 30px; align-items: start; }
+        
+        .form-group label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: var(--text-color); }
+        .form-group input, .form-group select {
+            width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 10px;
+            font-size: 14px; font-family: 'Anuphan', sans-serif; outline: none; background: var(--panel-bg); transition: 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(0,0,0,0.03); }
+        
+        /* Elements using Primary Color (Will change to #191970 in Tab 3) */
+        .result-box { 
+            background-color: var(--primary-color); color: #ffffff; padding: 25px; border-radius: 14px; 
+            text-align: center; margin-top: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transition: background-color 0.3s ease;
+        }
+        .result-box span { font-size: 36px; font-weight: 700; display: block; margin-top: 5px; font-family: 'DM Mono', monospace; color: var(--accent-color); }
+        
+        .btn-primary { 
+            background: var(--primary-color); color: #ffffff; border: none; padding: 14px; border-radius: 10px; 
+            font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; transition: 0.3s ease; font-family: 'Anuphan', sans-serif;
+        }
+        .btn-primary:hover { filter: brightness(1.2); }
+
+        .btn-accent { 
+            background: var(--accent-color); color: #ffffff; border: none; padding: 14px; border-radius: 10px; 
+            font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; transition: 0.2s; font-family: 'Anuphan', sans-serif;
+        }
+        .btn-accent:hover { filter: brightness(0.9); }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+        th { background-color: var(--surface-color); color: var(--primary-color); padding: 12px; font-weight: 600; text-align: left; transition: color 0.3s ease; }
+        td { padding: 12px; border-bottom: 1px solid var(--surface-color); }
+
+        /* Specific Elements */
+        .btn-preset { background: var(--panel-bg); border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: 0.2s;}
+        .btn-preset:hover { border-color: var(--primary-color); color: var(--primary-color); }
+        
+        /* Classic Calc Specific */
+        .mode-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; background: transparent; color: #717885; transition: 0.3s; }
+        
+        /* เปลี่ยนสีพื้นหลังปุ่ม Active เป็นสีขาวปกติ ตามที่บอสสั่ง */
+        .mode-btn.active-gold { background: #ffffff; color: var(--accent-color); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .mode-btn.active-silver { background: #ffffff; color: var(--primary-color); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        
+        .pure-gold-container { background: var(--surface-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 16px; margin-top: 20px; text-align: center;}
+
+    </style>
+</head>
+<body class="">
+
+    <div id="calculatorView">
+        <div class="dash-header">
+            <div>
+                <h1>Darin Collection</h1>
+                <div style="font-size: 13px; color: var(--text-color); opacity: 0.7; margin-top: 4px;">ระบบการจัดการสินทรัพย์และทองคำ</div>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <div style="background: var(--surface-color); color: var(--primary-color); padding: 8px 15px; border-radius: 8px; font-size: 13px; font-weight: 600; transition: color 0.3s ease;">📍 สาขา 1</div>
+            </div>
+        </div>
+
+        <div class="tabs-nav">
+            <!-- ส่งคลาสว่างๆ ('') เพื่อให้ใช้สี #0A142F ตามปกติ -->
+            <button class="tab-nav-btn active" onclick="switchThemeTab('calcTab', '', this)">🪙 เครื่องคำนวณราคา</button>
+            <button class="tab-nav-btn" onclick="switchThemeTab('reportTab', '', this)">📊 แดชบอร์ดสรุปยอด</button>
+            <!-- ส่งคลาส 'theme-classic' เพื่อสลับสีน้ำเงินเป็น #191970 -->
+            <button class="tab-nav-btn" onclick="switchThemeTab('classicTab', 'theme-classic', this)">📑 ระบบล็อกราคาทองและแร่เงิน</button>
+        </div>
+
+        <!-- ================= TAB 1: Live Calculator ================= -->
+        <div class="tab-content active" id="calcTab">
+            <div class="workspace-grid">
+                <div class="left-panel">
+                    <div class="form-group"><label>ราคาทองอ้างอิง</label><input type="number" value="44500"></div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group"><label>ประเภทสินค้าหลัก</label><select><option>ทองคำแท่ง</option></select></div>
+                        <div class="form-group"><label>ประเภทแร่เงิน</label><select><option>-- คำนวณทองคำ --</option></select></div>
+                    </div>
+                    <div class="form-group">
+                        <label>น้ำหนักชิ้นงาน (กรัม)</label>
+                        <input type="number" value="30.48">
+                        <div style="display:flex; gap:5px; margin-top:8px;">
+                            <button class="btn-preset">1 บาท (15.24g)</button>
+                            <button class="btn-preset">2 บาท (30.48g)</button>
+                        </div>
+                    </div>
+                    <div style="border: 1px dashed var(--accent-color); border-radius: 12px; padding: 14px; margin-top: 15px; font-size: 12.5px;">💡 <b>ทองคำแท่ง:</b> หักราคาตั้งค่าบาทละ <b>250 บาท</b></div>
+                    <button class="btn-primary" style="margin-top: 15px;">➕ เพิ่มชิ้นงานเข้าตั๋วบิลนี้</button>
+                </div>
+                <div class="right-panel">
+                    <div style="font-weight:700; font-size:15px; margin-bottom:12px;">📑 ตั๋วรายการรับซื้อสะสมในบิลนี้</div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 12px; overflow:hidden;">
+                        <table>
+                            <thead><tr><th>รายการ</th><th>น้ำหนัก</th><th>ราคา/กรัม</th><th>จ่ายสุทธิ</th></tr></thead>
+                            <tbody><tr><td><b>ทองคำแท่ง</b></td><td>30.48</td><td>2,837.20</td><td style="color:var(--primary-color); font-weight:bold;">86,477.86.-</td></tr></tbody>
+                        </table>
+                    </div>
+                    <div class="result-box">
+                        <div style="font-size:13px; opacity:0.8;">ราคารับซื้อสุทธิรวมทั้งสิ้น</div>
+                        <span>86,477.86 บาท</span>
+                    </div>
+                    <button class="btn-accent" style="margin-top: 15px;">☁️ บันทึกเข้าชีทและแดชบอร์ด</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 2: Dashboard ================= -->
+        <div class="tab-content" id="reportTab">
+            <div class="report-section">
+                <div class="filter-row" style="display: flex; gap: 15px; margin-bottom: 20px;">
+                    <div class="form-group" style="margin:0;"><label>📍 กรองตามสาขา:</label><select><option>ทุกสาขา</option></select></div>
+                    <div class="form-group" style="margin:0;"><label>📅 ช่วงเวลา:</label><select><option>วันนี้</option></select></div>
+                </div>
+                <div style="border: 1px solid var(--border-color); border-radius: 12px; overflow:hidden;">
+                    <table>
+                        <thead>
+                            <tr><th>วันที่/เวลา</th><th>สาขา</th><th>ประเภท</th><th>ทุนรวม (บาท)</th><th>สถานะ</th><th>คาดการณ์กำไร</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>15/07/2026</td><td><b>สาขา 1</b></td><td>ทองคำแท่ง</td><td>86,477</td><td><span style="background:#e8f5e9; color:#2e7d32; padding:4px 8px; border-radius:12px; font-size:12px; font-weight:bold;">✅ ขายแล้ว</span></td><td><b style="color:#2e7d32;">+1,200</b></td></tr>
+                            <tr><td>15/07/2026</td><td><b>สาขา 2</b></td><td>ทองหลอม</td><td>24,500</td><td><span style="background:#F5F1E7; color:var(--primary-color); padding:4px 8px; border-radius:12px; font-size:12px; font-weight:bold;">🔒 ล็อกราคา</span></td><td><b style="color:#c62828;">-150</b></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 3: Classic Lock ================= -->
+        <div class="tab-content" id="classicTab">
+            <div class="workspace-grid">
+                <div class="calculator-container">
+                    <div style="display:flex; background:var(--surface-color); padding:6px; border-radius:10px; margin-bottom:15px;">
+                        <button class="mode-btn">🟡 คำนวณทองคำ</button>
+                        <button class="mode-btn active-silver">⚪ คำนวณแร่เงิน (Active)</button>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group"><label>1. ราคาอ้างอิง</label><input type="number" value="44500"></div>
+                        <div class="form-group"><label>2. บวกเพิ่ม</label><input type="number" placeholder="0"></div>
+                        <div class="form-group"><label>3. น้ำหนัก (ก.)</label><input type="number" placeholder="0.000"></div>
+                        <div class="form-group"><label>4. เปอร์เซ็นต์</label><input type="number" placeholder="96.5"></div>
+                    </div>
+                    <div class="result-box" style="padding: 15px;">
+                        <div style="font-size:12px; opacity:0.8;">ราคารับซื้อสุทธิชิ้นนี้</div>
+                        <span style="font-size: 28px;">0 บาท</span>
+                    </div>
+                    <button class="btn-primary" style="margin-top:15px; background:var(--primary-color);">➕ เพิ่มลงตารางด้านขวา</button>
+                </div>
+                <div class="cc-table-container">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold; color:var(--primary-color); font-size: 16px;">
+                        📋 รายการบันทึกการซื้อขาย
+                        <button style="background:var(--primary-color); color:#fff; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:bold;">💾 ปิดยอดบันทึกประวัติ</button>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 12px; overflow:hidden;">
+                        <table>
+                            <thead><tr><th>รายการ</th><th>น้ำหนัก</th><th>%</th><th>ทองเพียว</th><th>ยอดจ่ายจริง</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:#aaa; font-style:italic; text-align:center;" colspan="5">ยังไม่มีรายการในตาราง</td></tr>
+                            </tbody>
+                            <tfoot style="background: var(--surface-color);">
+                                <tr>
+                                    <td style="font-weight:bold; color:var(--primary-color);">ยอดรวม</td>
+                                    <td style="font-weight:bold; color:var(--primary-color);">0.000 ก.</td>
+                                    <td style="font-weight:bold; color:var(--primary-color);">0.000%</td>
+                                    <td style="font-weight:bold; color:var(--primary-color);">0.000 ก.</td>
+                                    <td style="font-weight:bold; color:var(--accent-color);">0 บาท</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="pure-gold-container">
+                        <div style="font-size:13px; font-weight:bold; color: var(--text-color);">✨ น้ำหนักทองเพียว 99.99% รวมทั้งหมด</div>
+                        <div style="font-size:24px; font-weight:bold; color:var(--accent-color); font-family:'DM Mono';">0.000 กรัม</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function switchThemeTab(tabId, themeClass, btn) {
+            // สลับ Tab
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+
+            // สลับปุ่ม Active
+            document.querySelectorAll('.tab-nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // สลับ Theme Class ที่ Body (เปลี่ยนสีน้ำเงินเฉพาะ Tab 3)
+            document.body.className = themeClass;
+        }
+    </script>
+</body>
+</html>
