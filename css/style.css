@@ -153,7 +153,9 @@
         .btn-back-portal { position: fixed; top: 18px; right: 24px; z-index: 9999; background: #C8A145; color: #ffffff; border: none; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(10,20,47,0.18); transition: background 0.2s; }
         .btn-back-portal:hover { background: #0A142F; }
 
-        /* Classic Scope Styles */
+        /* =================================================================
+           Classic Scope Styles (อัปเดตโทนสี Deep Midnight #11114F)
+           ================================================================= */
         .classic-scope { font-family: 'Helvetica Neue', Arial, sans-serif; }
         .classic-scope, .classic-scope *, .classic-scope *:before, .classic-scope *:after { box-sizing: border-box; }
         .classic-scope .main-wrapper { display: flex; flex-direction: row; flex-wrap: wrap; gap: 20px; width: 100%; max-width: 1550px; }
@@ -165,12 +167,18 @@
         .classic-scope .cc-tab-btn.active-tab { background-color: #C8A145; color: #ffffff; box-shadow: 0 2px 6px rgba(200, 161, 69, 0.2); }
         .classic-scope .table-scroll-wrapper { max-height: 520px; overflow-y: auto; overflow-x: auto; margin-top: 15px; border: 1px solid #E8E2D9; border-radius: 8px; -webkit-overflow-scrolling: touch; }
         .classic-scope .gold-table { width: 100%; min-width: 850px; border-collapse: separate; border-spacing: 0; font-size: 14px; }
-        .classic-scope .gold-table th { background-color: #F5F1E7; color: #0A142F; font-weight: bold; text-align: center; padding: 12px; border-bottom: 2px solid #E8E2D9; position: sticky; top: 0; z-index: 10; }
+        
+        /* เปลี่ยนสีข้อความหัวตารางเป็น Deep Midnight */
+        .classic-scope .gold-table th { background-color: #F5F1E7; color: #11114F; font-weight: bold; text-align: center; padding: 12px; border-bottom: 2px solid #E8E2D9; position: sticky; top: 0; z-index: 10; }
+        
         .classic-scope .gold-table td { padding: 12px; border-bottom: 1px solid #F5F1E7; color: #1E2432; text-align: center; }
         .classic-scope .calc-mode-container { display: flex; gap: 8px; margin-bottom: 20px; background-color: #F5F1E7; padding: 6px; border-radius: 12px; }
         .classic-scope .mode-btn { flex: 1; padding: 12px 5px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: center; background-color: transparent; color: #717885; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .mode-btn.active-gold { background-color: #C8A145; color: #fff; box-shadow: 0 2px 8px rgba(200, 161, 69, 0.3); }
-        .classic-scope .mode-btn.active-silver { background-color: #0A142F; color: #fff; box-shadow: 0 2px 8px rgba(10, 20, 47, 0.3); }
+        
+        /* ปรับปุ่มโหมด: พื้นขาว, ตัวหนังสือและกรอบสีทอง/น้ำเงิน ตามโหมด */
+        .classic-scope .mode-btn.active-gold { background-color: #ffffff; color: #C8A145; border: 2px solid #C8A145; padding: 10px 3px; box-shadow: 0 2px 8px rgba(200, 161, 69, 0.15); }
+        .classic-scope .mode-btn.active-silver { background-color: #ffffff; color: #11114F; border: 2px solid #11114F; padding: 10px 3px; box-shadow: 0 2px 8px rgba(17, 17, 79, 0.15); }
+        
         .classic-scope .cc-row { display: flex; gap: 12px; margin-bottom: 12px; width: 100%; }
         .classic-scope .cc-form-group { flex: 1; display: flex; flex-direction: column; min-width: 0; }
         .classic-scope label { color: #1E2432; font-size: 13px; margin-bottom: 6px; font-weight: 500; font-family: 'Anuphan', sans-serif;}
@@ -179,13 +187,21 @@
         .classic-scope .delete-row-btn:hover { background-color: #c94c4c; color: #ffffff; }
         .classic-scope .item-name-cell { display: flex; align-items: center; justify-content: flex-start; padding-left: 15px !important; }
         .classic-scope .pay-column { font-weight: bold; color: #C8A145 !important; }
-        .classic-scope .summary-row td { position: sticky; bottom: 0; z-index: 9; background-color: #F5F1E7 !important; color: #0A142F; font-weight: bold; border-top: 2px solid #E8E2D9; border-bottom: none; font-size: 15px; }
+        
+        /* เปลี่ยนสีข้อความสรุปเป็น Deep Midnight */
+        .classic-scope .summary-row td { position: sticky; bottom: 0; z-index: 9; background-color: #F5F1E7 !important; color: #11114F; font-weight: bold; border-top: 2px solid #E8E2D9; border-bottom: none; font-size: 15px; }
+        
         .classic-scope .empty-row-text { color: #bbb; font-style: italic; }
         .classic-scope .silver-net-pay-container { margin-top: 20px; align-self: flex-end; background-color: #FCFAF5; border: 1px solid #E8E2D9; padding: 15px 25px; border-radius: 12px; text-align: right; width: 100%; max-width: 380px; box-shadow: 0 2px 10px rgba(10,20,47,0.03); }
         .classic-scope .silver-net-title { font-size: 13px; color: #1E2432; font-weight: bold; margin-bottom: 4px; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .silver-net-value { font-size: 26px; font-weight: bold; color: #0A142F; font-family: 'DM Mono', monospace;}
-        .classic-scope .save-to-history-btn { background-color: #0A142F; color: #ffffff; border: none; padding: 10px 18px; font-size: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .save-to-history-btn:hover { background: #162447; }
+        
+        /* เปลี่ยนสียอดสุทธิเป็น Deep Midnight */
+        .classic-scope .silver-net-value { font-size: 26px; font-weight: bold; color: #11114F; font-family: 'DM Mono', monospace;}
+        
+        /* เปลี่ยนปุ่มบันทึกเป็น Deep Midnight */
+        .classic-scope .save-to-history-btn { background-color: #11114F; color: #ffffff; border: none; padding: 10px 18px; font-size: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: 'Anuphan', sans-serif;}
+        .classic-scope .save-to-history-btn:hover { background: #0a0a33; }
+        
         .classic-scope .history-list { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
         .classic-scope .history-item { background-color: #ffffff; border: 1px solid #E8E2D9; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 8px; position: relative; }
         .classic-scope .history-item-header { display: flex; justify-content: space-between; font-size: 13px; color: #717885; border-bottom: 1px dashed #E8E2D9; padding-bottom: 6px; font-family: 'Anuphan', sans-serif;}
@@ -193,18 +209,30 @@
         .classic-scope .history-summary-text { font-size: 14px; color: #1E2432; font-family: 'Anuphan', sans-serif;}
         .classic-scope .history-actions { display: flex; gap: 8px; }
         .classic-scope .hist-btn { padding: 6px 12px; font-size: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; border: 1px solid #E8E2D9; transition: all 0.1s; font-family: 'Anuphan', sans-serif;}
-        .classic-scope .btn-recall { background-color: #F5F1E7; color: #0A142F; }
+        
+        /* เปลี่ยนสีตัวหนังสือปุ่มดึงข้อมูลเป็น Deep Midnight */
+        .classic-scope .btn-recall { background-color: #F5F1E7; color: #11114F; }
+        
         .classic-scope .btn-delete-hist { background-color: #fff; color: #c94c4c; border-color: #f5c2c2; }
         .classic-scope .btn-delete-hist:hover { background-color: #c94c4c; color: #fff; }
-        .classic-scope .history-grand-total { margin-top: 20px; background-color: #F5F1E7; border: 1px solid #E8E2D9; padding: 15px; border-radius: 10px; font-size: 14px; color: #0A142F; font-weight: bold; display: flex; justify-content: space-between; font-family: 'Anuphan', sans-serif;}
+        
+        /* เปลี่ยนสีข้อความยอดรวมประวัติเป็น Deep Midnight */
+        .classic-scope .history-grand-total { margin-top: 20px; background-color: #F5F1E7; border: 1px solid #E8E2D9; padding: 15px; border-radius: 10px; font-size: 14px; color: #11114F; font-weight: bold; display: flex; justify-content: space-between; font-family: 'Anuphan', sans-serif;}
+        
         .classic-scope .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 20, 47, 0.4); display: flex; justify-content: center; align-items: center; z-index: 9999; }
         .classic-scope .modal-box { background-color: #ffffff; width: 90%; max-width: 700px; border-radius: 16px; padding: 25px; box-shadow: 0 10px 30px rgba(10,20,47,0.15); display: flex; flex-direction: column; max-height: 85vh; border: 1px solid #E8E2D9;}
         .classic-scope .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E8E2D9; padding-bottom: 10px; margin-bottom: 15px; }
-        .classic-scope .modal-title { font-size: 18px; font-weight: bold; color: #0A142F; font-family: 'Anuphan', sans-serif;}
+        
+        /* เปลี่ยนสีชื่อโมดอลเป็น Deep Midnight */
+        .classic-scope .modal-title { font-size: 18px; font-weight: bold; color: #11114F; font-family: 'Anuphan', sans-serif;}
+        
         .classic-scope .modal-close-x { background: none; border: none; font-size: 20px; color: #999; cursor: pointer; }
         .classic-scope .modal-body { overflow-y: auto; margin-bottom: 15px; }
         .classic-scope .modal-footer { display: flex; justify-content: flex-end; }
-        .classic-scope .btn-close-modal { background-color: #F5F1E7; color: #0A142F; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: 'Anuphan', sans-serif;}
+        
+        /* เปลี่ยนสีข้อความปุ่มปิดเป็น Deep Midnight */
+        .classic-scope .btn-close-modal { background-color: #F5F1E7; color: #11114F; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: 'Anuphan', sans-serif;}
+        
         @media (max-width: 1024px) { .classic-scope .main-wrapper { flex-direction: column; } .classic-scope .left-container { max-width: 100%; } .classic-scope .silver-net-pay-container { align-self: center; max-width: 100%; text-align: center; } }
         .classic-scope .pure-gold-container { background-color: #F5F1E7; border: 1px solid #E8E2D9; padding: 22px; border-radius: 16px; display: flex; flex-direction: column; gap: 15px; }
         .classic-scope .pure-box-section { text-align: center; }
@@ -213,7 +241,10 @@
         .classic-scope .pure-gold-value { font-size: 26px; font-weight: bold; color: #C8A145; font-family: 'DM Mono', monospace;}
         .classic-scope .refine-title { color: #717885; }
         .classic-scope .refine-value { color: #1E2432; }
-        .classic-scope .result-button { background-color: #0A142F; color: #C8A145; text-align: center; padding: 18px; border-radius: 12px; margin-top: 20px; }
+        
+        /* เปลี่ยนสีกล่องผลลัพธ์ใหญ่เป็น Deep Midnight */
+        .classic-scope .result-button { background-color: #11114F; color: #C8A145; text-align: center; padding: 18px; border-radius: 12px; margin-top: 20px; }
+        
         .classic-scope .result-amount { font-size: 28px; font-weight: bold; font-family: 'DM Mono', monospace;}
         .classic-scope .add-btn { background-color: #C8A145; color: white; border: none; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 10px; width: 100%; margin-top: 15px; cursor: pointer; font-family: 'Anuphan', sans-serif;}
         .classic-scope .add-btn:hover { background-color: #b38e36; }
