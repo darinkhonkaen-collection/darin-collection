@@ -402,7 +402,7 @@ function calculatePriceLogic() {
             else if (weightInBaht > 1 && weightInBaht <= 3) discount = getRateValue(r.gb_t2, 120); 
             else if (weightInBaht > 3 && weightInBaht <= 5) discount = getRateValue(r.gb_t3, 150);
             
-            // อัปเดตสูตรใหม่: ราคาอ้างอิงตรง - เรทส่วนลด * 0.0656
+            // ใช้สูตรใหม่: ราคาอ้างอิงตรง - เรทส่วนลด * 0.0656
             pricePerGram = (basePrice - discount) * 0.0656; 
             
             if (cheatSheet) cheatSheet.innerHTML = `<b>ทองคำแท่ง:</b> หักราคาตั้งค่าบาทละ <b>${discount} บาท</b> ตามช่วงน้ำหนัก`;
@@ -666,6 +666,15 @@ function rebuildLargeDashboardTableHTML() {
         if (item.type === "เงินแท่ง" || item.type === "เงินหลอม") {
             let expectedSilverRevenue = localSilverPriceGrams * actualPurity * item.weight;
             netProfitOrLoss = expectedSilverRevenue - item.cost;
+        } else if (item.type === "ทองคำแท่ง") {
+            // โลจิกคำนวณกำไร/ขาดทุนแบบใหม่ เฉพาะทองคำแท่ง
+            let spreadPerGram = 20; // ค่าคงที่ในการหักส่วนต่าง 20 บาท/กรัม
+            let weightInBaht = item.weight / 15.24; 
+            let baseValue = localAssociationPrice * weightInBaht; 
+            let deduction = spreadPerGram * item.weight; 
+            let expectedRevenue = baseValue - deduction; 
+            
+            netProfitOrLoss = expectedRevenue - item.cost;
         } else {
             let expectedGoldRevenue = localAssociationPrice * 0.0656 * actualPurity * item.weight;
             netProfitOrLoss = expectedGoldRevenue - item.cost;
