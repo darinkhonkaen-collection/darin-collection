@@ -243,7 +243,7 @@
         .classic-scope .hidden-element { display: none !important; }
 
         /* =================================================================
-           PORTAL CARDS - HARMONIZED MINIMALIST THEME
+           PORTAL CARDS - HARMONIZED MINIMALIST THEME (อัปเดตสลับสีการ์ด 2-3)
            ================================================================= */
         
         /* 🔵 การ์ดที่ 1: ระบบประเมินราคา (Blue/Periwinkle) */
@@ -265,40 +265,40 @@
             background: #35526E !important;
         }
         
-        /* 🟡 การ์ดที่ 2: ระบบขายฝาก (Gold/Champagne) */
+        /* ⚪ การ์ดที่ 2: ระบบขายฝาก (Silver/Grey) */
         .portal-grid .portal-card:nth-child(2) {
-            border: 2px solid #D9C59A !important;
-        }
-        .portal-grid .portal-card:nth-child(2) .card-icon-wrapper {
-            background: rgba(217, 197, 154, 0.2) !important;
-            color: #947B3E !important;
-        }
-        .portal-grid .portal-card:nth-child(2) h3 {
-            color: #947B3E !important;
-        }
-        .portal-grid .portal-card:nth-child(2) .btn-card-launch {
-            background: #947B3E !important;
-            color: #ffffff !important;
-        }
-        .portal-grid .portal-card:nth-child(2) .btn-card-launch:hover {
-            background: #735F2E !important;
-        }
-        
-        /* ⚪ การ์ดที่ 3: ระบบคำนวณราคา (Silver/Grey) */
-        .portal-grid .portal-card:nth-child(3) {
             border: 2px solid #B0B0C0 !important;
         }
-        .portal-grid .portal-card:nth-child(3) .card-icon-wrapper {
+        .portal-grid .portal-card:nth-child(2) .card-icon-wrapper {
             background: rgba(176, 176, 192, 0.2) !important;
             color: #5C5C6B !important;
         }
-        .portal-grid .portal-card:nth-child(3) h3 {
+        .portal-grid .portal-card:nth-child(2) h3 {
             color: #5C5C6B !important;
         }
-        .portal-grid .portal-card:nth-child(3) .btn-card-launch {
+        .portal-grid .portal-card:nth-child(2) .btn-card-launch {
             background: #5C5C6B !important;
             color: #ffffff !important;
         }
-        .portal-grid .portal-card:nth-child(3) .btn-card-launch:hover {
+        .portal-grid .portal-card:nth-child(2) .btn-card-launch:hover {
             background: #454552 !important;
+        }
+        
+        /* 🟡 การ์ดที่ 3: ระบบคำนวณราคา (Gold/Champagne) */
+        .portal-grid .portal-card:nth-child(3) {
+            border: 2px solid #D9C59A !important;
+        }
+        .portal-grid .portal-card:nth-child(3) .card-icon-wrapper {
+            background: rgba(217, 197, 154, 0.2) !important;
+            color: #947B3E !important;
+        }
+        .portal-grid .portal-card:nth-child(3) h3 {
+            color: #947B3E !important;
+        }
+        .portal-grid .portal-card:nth-child(3) .btn-card-launch {
+            background: #947B3E !important;
+            color: #ffffff !important;
+        }
+        .portal-grid .portal-card:nth-child(3) .btn-card-launch:hover {
+            background: #735F2E !important;
         }
