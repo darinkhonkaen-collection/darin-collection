@@ -251,3 +251,22 @@
         .classic-scope .clear-btn { background-color: #F5F1E7; color: #c94c4c; border: 1px solid #E8E2D9; padding: 10px 18px; font-size: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; font-family: 'Anuphan', sans-serif;}
         .classic-scope .clear-btn:hover { background-color: #ffe6e6; }
         .classic-scope .hidden-element { display: none !important; }
+
+        /* =================================================================
+           PORTAL CARDS - CUSTOM BORDER COLORS (ปรับสีกรอบ 3 ระบบหลัก)
+           ================================================================= */
+        
+        /* การ์ดที่ 1: ระบบประเมินราคา (โทนน้ำเงินฟ้าพรีเมียม) */
+        .portal-grid .portal-card:nth-child(1) {
+            border: 2px solid #A2B9D1 !important;
+        }
+        
+        /* การ์ดที่ 2: ระบบขายฝาก (โทนสีทองละมุน) */
+        .portal-grid .portal-card:nth-child(2) {
+            border: 2px solid #D9C59A !important;
+        }
+        
+        /* การ์ดที่ 3: ระบบคำนวณราคา (โทนเทาอมน้ำเงิน/เงินมิดไนท์) */
+        .portal-grid .portal-card:nth-child(3) {
+            border: 2px solid #B0B0C0 !important;
+        }
